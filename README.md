@@ -15,11 +15,32 @@ Quick start
 
    npm install
 
-3. Run the development server
+3. Create Supabase project and table
+
+   - Create a Supabase project at https://app.supabase.com/
+   - Create a table named `requests` with columns:
+     - id (uuid or bigint) - primary key
+     - name (text)
+     - email (text)
+     - service (text)
+     - budget (text)
+     - description (text)
+     - created_at (timestamp) default: now()
+
+4. Add environment variables
+
+   Create a `.env.local` file in the project root and add:
+
+   SUPABASE_URL=your-supabase-url
+   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+   Note: For production, store the service role key securely (use server-side only). The API route uses the service role key to insert data.
+
+5. Run the development server
 
    npm run dev
 
-4. Open http://localhost:3000 in your browser
+6. Open http://localhost:3000 in your browser
 
 What's included
 
@@ -27,13 +48,13 @@ What's included
 - TypeScript
 - Tailwind CSS
 - Dark theme, glassmorphism, neon accents
-- Pages: Home, Store, Login, Register
+- Pages: Home, Services, Login, Register, Request
 - Components: Hero, Services, WhyChoose, ContactCTA, Footer
 
 Notes
 
 - The project uses Tailwind CSS via PostCSS. The Tailwind config is at `tailwind.config.js` and the entry CSS is `app/globals.css`.
-- If you want to customize fonts or environment variables, add them to `next.config.js` or create a `.env.local` file.
+- The Request form submits to `/api/requests` which stores submissions in your Supabase project's `requests` table.
 
 Recommended Node version
 
