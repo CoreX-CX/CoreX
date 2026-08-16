@@ -10,13 +10,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // small palette extensions for COREX
-        corex: {
-          50: '#f5f7ff',
-        },
+        'corex-blue': '#3B82F6',
+        'corex-purple': '#A855F7',
+        'corex-cyan': '#22D3EE',
+        'corex-bg': '#050816',
       },
-      backgroundImage: {
-        'corex-hero': 'radial-gradient(ellipse at top left, rgba(59,130,246,0.12), transparent 30%), radial-gradient(ellipse at bottom right, rgba(139,92,246,0.08), transparent 30%)',
+      boxShadow: {
+        'neon-sm': '0 6px 30px rgba(59,130,246,0.08)',
       },
     },
   },
