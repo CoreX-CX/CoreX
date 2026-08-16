@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseServer'
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+// Note: Keep the second parameter untyped to satisfy Next.js route handler typing expectations.
+export async function DELETE(req: Request, context: any) {
   try {
-    const id = params.id
+    const { id } = context.params || {}
     const auth = req.headers.get('authorization') || ''
     const token = auth.replace('Bearer ', '')
     if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -26,9 +27,9 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
   }
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, context: any) {
   try {
-    const id = params.id
+    const { id } = context.params || {}
     const body = await req.json()
     const { completed } = body
 
