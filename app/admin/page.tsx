@@ -26,18 +26,21 @@ export default function AdminPage() {
   useEffect(() => {
     const getSession = async () => {
       const { data } = await supabase.auth.getSession()
-      setSession(data.session)
-      if (data.session) await verifyAdmin(data.session.access_token)
+      const currentSession = data?.session ?? null
+      setSession(currentSession)
+      if (currentSession) await verifyAdmin(currentSession.access_token)
     }
     getSession()
 
     const { data: listener } = supabase.auth.onAuthStateChange((event, sess) => {
-      setSession(sess.session)
-      if (sess.session) verifyAdmin(sess.session.access_token)
+      // sess may be a Session object or null
+      const currentSession = sess ?? null
+      setSession(currentSession)
+      if (currentSession) verifyAdmin((currentSession as any).access_token)
       else setIsAdmin(false)
     })
 
-    return () => listener?.subscription.unsubscribe()
+    return () => listener?.subscription?.unsubscribe()
   }, [])
 
   async function verifyAdmin(token: string) {
@@ -77,7 +80,7 @@ export default function AdminPage() {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
-      if (data.session) {
+      if (data?.session) {
         await verifyAdmin(data.session.access_token)
       }
     } catch (err: any) {
