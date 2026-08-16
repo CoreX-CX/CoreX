@@ -1,3 +1,6 @@
+/// <reference types="next" />
+/// <reference types="next/types/global" />
+
 {
   "compilerOptions": {
     "target": "ES2022",
@@ -11,7 +14,9 @@
     "skipLibCheck": true,
     "incremental": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "@/*": ["./*"]
+    },
     "types": ["next", "node"]
   },
   "exclude": ["node_modules"],
